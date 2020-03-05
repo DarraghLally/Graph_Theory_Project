@@ -1,4 +1,5 @@
 # Project implementation
+# Creating an NFA using Thompsons Construction
 # Darragh Lally
 
 ##############################################################
@@ -99,7 +100,7 @@ def shunt(infix):
 
 ##############################################################
 
-def regex_compile(infix):
+def compile(infix):
     # First convert infix to postfix
     postfix = shunt(infix)
     # Parse postfix string into a list and reverse
@@ -161,8 +162,29 @@ def regex_compile(infix):
 # matches the string 's'
 def match(regex, s):
     # Compile regex into NFA
-    nfa = regex_compile(regex)
-    return nfa
+    nfa = compile(regex)
+    
+    # Try to match the regular expression to the string s
+    # Current set of states
+    current = {nfa.start}
+    # Previous set of states
+    previous = set()
+    # Loop through char's of 's'
+    for c in s:
+        # Keep track of where we were
+        previous = current
+        # Create a new empty set for states we will soon be in
+        current = set()
+        # Loop through previous states
+        for s in previous:
+            # Only follow arrows not labeled by E - epsilon
+            if s.label is None
+                # If the label of the state is == to char
+                if s.label == c:
+                    # Add state at the endof the arrow to current
+                    current.update(s.edges)
+# Second last video at 24 mins
+    return True
 
 ##############################################################
 
