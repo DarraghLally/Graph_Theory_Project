@@ -22,7 +22,6 @@ class Fragment:
 class State:
     # Every state has n arrows coming from it (0-2)
     edges = []
-
     # Label for arrow
     label = None
 
@@ -31,39 +30,16 @@ class State:
         self.edges = edges
         self.label = label
 
-# Testing block
-
-# myInstance = State(label='a', edges=[])
-# myOtherInstance = State(edges=[myInstance])
-# print(myInstance.label)
-# print(myOtherInstance.edges[0])
-
-#End testing block
-
 ##############################################################
 
 # Shunting Yard Algorithm
 def shunt(infix):
-
-# Below block used for testing...
-    
-    # Convert 'infix' to a stack list
-    # infix = "(a|b).c*"
-    # print("Input: (a|b).c*")
-    # Expected output: ab|c*.
-    # print("Expect: ", "ab|c*")
-
-# End testing block
-
     # Convert input to a stackish list put on a list, in reverse order
     infix = list(infix)[::-1]
-
     # Operator Stack
     opers = []
-
     # Output list
     postfix = []
-
     # Operator presidence - add + operator in future
     prec = {'*':100, '.':80, '|':60, ')':40, '(':20}
 
@@ -94,9 +70,8 @@ def shunt(infix):
     # Pop all operators to the output
     while opers:
         postfix.append(opers.pop())
-
     # Convert output list to string
-    postfix = ''.join(postfix)
+    return ''.join(postfix)
 
 ##############################################################
 
@@ -105,7 +80,6 @@ def compile(infix):
     postfix = shunt(infix)
     # Parse postfix string into a list and reverse
     postfix = list(postfix)[::-1]
-    
     # NFA stact
     nfa_stack = []
     
@@ -128,8 +102,8 @@ def compile(infix):
             start = State()
             accept = State(edges=[frag2.start, frag1.accept])
             # Point the old accept states to the new one
-            frag2.edges.append(accept)
-            frag1.edges.append(accept)
+            frag2.accept.edges.append(accept)
+            frag1.accept.edges.append(accept)
             # Create a new fragment
             newfrag = Fragment(start, accept)
         #elif c == '+':
@@ -145,16 +119,33 @@ def compile(infix):
             # Create new fragment
             newfrag = Fragment(start, accept)
         else:
-            start = State(label=c, edges=[accept])
             accept = State()
+            start = State(label=c, edges=[accept])
             #create a new fragment with initial and accept
             newfrag = Fragment(start, accept)
         
         # Push new fragment to the NFA stack
-        nfa_stact.append(newfrag)
+        nfa_stack.append(newfrag)
 
     # NFA stack should have exactly one NFA
     return nfa_stack.pop()
+
+##############################################################
+
+# Function to follow epsilon arrows
+# Add state to set, and follow all of the 'e' arrows
+def followepsilon(state, current):
+    # Only do when we haven't already seen the state
+    if state not in current:
+        # Put state into current
+        current.add(state)
+        # See whether state is labelled by 'e'
+        if state.label is None:
+            # Loop through states pointed to by 'this'
+            for x in state.edges:
+                # Follow all their 'e' too - this form of recursion is not 
+                # is not advised
+                followepsilon(x, current)
 
 ##############################################################
 
@@ -163,33 +154,34 @@ def compile(infix):
 def match(regex, s):
     # Compile regex into NFA
     nfa = compile(regex)
-    
-    # Try to match the regular expression to the string s
     # Current set of states
-    current = {nfa.start}
+    current = set()
+    # Add first state, and follow all 'e' arrows
+    followepsilon(nfa.start, current)
     # Previous set of states
     previous = set()
     # Loop through char's of 's'
-    for c in s:
+    for c in s: 
         # Keep track of where we were
         previous = current
         # Create a new empty set for states we will soon be in
         current = set()
         # Loop through previous states
-        for s in previous:
+        for state in previous:
             # Only follow arrows not labeled by E - epsilon
-            if s.label is None
+            if state.label is not None:
                 # If the label of the state is == to char
-                if s.label == c:
-                    # Add state at the endof the arrow to current
-                    current.update(s.edges)
-# Second last video at 24 mins
-    return True
+                if state.label == c:
+                    # Add state at the end of the arrow to current
+                    followepsilon(state.edges[0], current)
+    
+    # Only one accept state, if we are there, return true!
+    return nfa.accept in current
 
 ##############################################################
 
 # Testing match()
-print(match("a.b|b*", "ab"))
+print(match("a.b|b*", "xbbbbbbbbbbbb"))
 
 
 
