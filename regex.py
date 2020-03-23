@@ -40,8 +40,8 @@ def shunt(infix):
     opers = []
     # Output list
     postfix = []
-    # Operator presidence - add + operator in future
-    prec = {'*':100, '.':80, '|':60, ')':40, '(':20}
+    # Operator presidence 
+    prec = {'*':100, '+':90, '?':80, '.':70, '|':60, ')':40, '(':20 }
 
     # Loop through the input one char at a time
     while infix:
@@ -106,7 +106,17 @@ def compile(infix):
             frag1.accept.edges.append(accept)
             # Create a new fragment
             newfrag = Fragment(start, accept)
-        #elif c == '+':
+        elif c == '+':
+            # Binary operator - pop just one
+            frag = nfa_stack.pop()
+            # New start and accept states
+            start = State()
+            accept = State(edges=[accept, frag.start])
+            # Point to the old
+            frag.accept.edges = [frag.start, accept]
+            # Create a new frag
+            newfrag = Fragment(start, accept)
+        #elif c == '?':
             #
         elif c == '*':
             # Pop just one fragment, Kleene star is a binary operator!
@@ -181,19 +191,8 @@ def match(regex, s):
 ##############################################################
 
 # Testing match()
-print(match("a.b|b*", "xbbbbbbbbbbbb"))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# print(match("a.b|b*", "xbbbbbbbbbbbb"))
+# print(match("a.b", "ab"))
+# print(match("a|b", "b")) # not working????
+print(match("a.b|b*", "a"))
 
