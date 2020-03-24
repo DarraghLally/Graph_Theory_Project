@@ -1,49 +1,45 @@
-# Project implementation
+# Graph Theory Project implementation
 # Creating an NFA using Thompsons Construction
-# Darragh Lally
+# Darragh Lally - G00220290
 
 ##############################################################
 
-# Fragment class
 class Fragment:
-    # Start state of NFA frag
-    start = None
-    # Accept state of NFA frag
-    accept = None
-
+    """An NFA fragment, with a start and accept state"""
     # Constructor
     def __init__(self, start, accept):
-        self.start = start
+        # Start state of NFA
+        self.start = start  
+        # Accept state of NFA
         self.accept = accept
 
 ##############################################################
 
-# State Class
 class State:
-    # Every state has n arrows coming from it (0-2)
-    edges = []
-    # Label for arrow
-    label = None
-
+    """A State with labelled edges"""
     # Constructor
     def __init__(self, label=None, edges=[]):
+        # Each state has 0-2 edges
         self.edges = edges
+        # Each edge is labelled
         self.label = label
 
 ##############################################################
 
-# Shunting Yard Algorithm
 def shunt(infix):
-    # Convert input to a stackish list put on a list, in reverse order
+    """shunt
+
+    Shunting Yard Algorithm to parse and return regex in postfix notation 
+    """
+    # Convert input to a stack, in reverse order
     infix = list(infix)[::-1]
     # Operator Stack
     opers = []
-    # Output list
+    # Postfix regex
     postfix = []
     # Operator presidence 
-    prec = {'*':100, '+':90, '?':80, '.':70, '|':60, ')':40, '(':20 }
+    prec = {'*':100, '+':100, '?':100, '.':70, '|':60, ')':40, '(':40 }
 
-    # Loop through the input one char at a time
     while infix:
         # Pop a char from the input
         c = infix.pop() # Returns and removes last element
@@ -58,7 +54,7 @@ def shunt(infix):
             opers.pop()
         # Decide what to do based on the char
         elif c in prec:
-            # Push any operators on the opers stack with higher preference to the output
+            # Push operators on the opers stack with higher pref to output
             while opers and prec[c] < prec[opers[-1]]:
                 postfix.append(opers.pop())
             # Push c to opers stack
@@ -67,73 +63,94 @@ def shunt(infix):
             # Typically, we just push the char to the output
             postfix.append(c)
 
-    # Pop all operators to the output
     while opers:
+        # Pop all operators to the output
         postfix.append(opers.pop())
+
     # Convert output list to string
     return ''.join(postfix)
 
 ##############################################################
 
 def compile(infix):
+    """compile
+    
+    Function that returns an NFA fragment that represents the infix regex    
+    """
     # First convert infix to postfix
     postfix = shunt(infix)
-    # Parse postfix string into a list and reverse
+    # Parse postfix string into a stack
     postfix = list(postfix)[::-1]
-    # NFA stact
+    # NFA fragment stact
     nfa_stack = []
     
     while(postfix):
         # Pop a char from postfix
         c = postfix.pop()
+
+        # Concatenation
         if c == '.':
             # Pop two fragments from NFA stack
             frag1 = nfa_stack.pop()
-            frag2 = nfa_stack.pop()
+            frag2 = nfa_stack.pop()  
             # Point frag2's accept state at frag1's start state
             frag2.accept.edges.append(frag1.start)
-            # Create new fragment using frag2's start state and frag1's accept state
-            newfrag = Fragment(frag2.start, frag1.accept)
+            # New start state
+            start = frag2.start
+            # New accept state
+            accept = frag1.accept 
+            # Point frag2's accept state at frag1's start state
+            frag2.accept.edges.append(frag1.start)
+
+        # Alternation
         elif c == '|':
             # Pop two fragments from NFA stack
             frag1 = nfa_stack.pop()
             frag2 = nfa_stack.pop()
             # Create new start and accept states
-            start = State()
-            accept = State(edges=[frag2.start, frag1.accept])
+            accept = State()
+            start = State(edges=[frag2.start, frag1.start])
             # Point the old accept states to the new one
             frag2.accept.edges.append(accept)
-            frag1.accept.edges.append(accept)
-            # Create a new fragment
-            newfrag = Fragment(start, accept)
-        elif c == '+':
-            # Binary operator - pop just one
-            frag = nfa_stack.pop()
-            # New start and accept states
-            start = State()
-            accept = State(edges=[accept, frag.start])
-            # Point to the old
-            frag.accept.edges = [frag.start, accept]
-            # Create a new frag
-            newfrag = Fragment(start, accept)
-        #elif c == '?':
-            #
+            frag1.accept.edges.append(accept)            
+
+        # Any number of, incl. zero
         elif c == '*':
             # Pop just one fragment, Kleene star is a binary operator!
             frag = nfa_stack.pop()
             # Create new start and accept states
-            start = State()
-            accept = State(edges=[accept, frag.start])
+            accept = State()
+            start = State(edges=[frag.start, accept])
             # Point to old accept states
-            frag.accept.edges = [frag.start,accept]
-            # Create new fragment
-            newfrag = Fragment(start, accept)
+            frag.accept.edges = [frag.start, accept]
+        
+        # I have referenced material in the project README as to
+        # where I have researched the + and % operators
+
+        # One or more
+        elif c == '+':
+            # Binary operator, pop just one
+            frag = nfa_stack.pop()
+            # New start and accept states
+            accept = State()            
+            start = frag.start
+            # Point to the old
+            frag.accept.edges = [start, accept]
+
+        # Zero or One
+        elif c == '?':
+            # Binary operator, pop one
+            frag = nfa_stack.pop()
+            # New start and accept
+            accept = State()
+            start = State(edges=[frag.start, accept])
+            # Point to the old
+            frag.accept.edges = [accept, accept]
         else:
             accept = State()
             start = State(label=c, edges=[accept])
-            #create a new fragment with initial and accept
-            newfrag = Fragment(start, accept)
-        
+        #Create a new fragment
+        newfrag = Fragment(start, accept)
         # Push new fragment to the NFA stack
         nfa_stack.append(newfrag)
 
@@ -142,9 +159,11 @@ def compile(infix):
 
 ##############################################################
 
-# Function to follow epsilon arrows
-# Add state to set, and follow all of the 'e' arrows
 def followepsilon(state, current):
+    """followepsilon
+    
+    A function to follow any e(psilon) edges
+    """
     # Only do when we haven't already seen the state
     if state not in current:
         # Put state into current
@@ -159,9 +178,12 @@ def followepsilon(state, current):
 
 ##############################################################
 
-# Function to return true if the regular expression 'regex'
-# matches the string 's'
 def match(regex, s):
+    """match
+
+    A function that returns True if regular expression
+    (regex) matchs the string (s)
+    """
     # Compile regex into NFA
     nfa = compile(regex)
     # Current set of states
@@ -170,19 +192,19 @@ def match(regex, s):
     followepsilon(nfa.start, current)
     # Previous set of states
     previous = set()
-    # Loop through char's of 's'
+
     for c in s: 
         # Keep track of where we were
         previous = current
         # Create a new empty set for states we will soon be in
         current = set()
-        # Loop through previous states
+
         for state in previous:
-            # Only follow arrows not labeled by E - epsilon
+            # Only follow arrows not labelled by E, epsilon
             if state.label is not None:
-                # If the label of the state is == to char
+                # If label of the state is == to char
                 if state.label == c:
-                    # Add state at the end of the arrow to current
+                    # Add state at the end of the edge to current
                     followepsilon(state.edges[0], current)
     
     # Only one accept state, if we are there, return true!
@@ -190,9 +212,32 @@ def match(regex, s):
 
 ##############################################################
 
-# Testing match()
-# print(match("a.b|b*", "xbbbbbbbbbbbb"))
-# print(match("a.b", "ab"))
-# print(match("a|b", "b")) # not working????
-print(match("a.b|b*", "a"))
+# Testing
+
+# Will only run if this is ran as its own script
+# if calling from another script these tests will not be ran
+if __name__ == "__main__":
+    # An array of tests
+    tests = [
+        ["a.b|b*", "bbbbb", True],
+        ["a.b|b*", "bbbbbx", False],
+        
+        ["a.b", "ab", True], 
+        ["a.b", "c", False], 
+        
+        ["b*", "", True],
+        ["b**", "bbbbbb", True],
+
+        ["b+", "bbb", True],
+        ["b+", "", False],
+
+        ["c?", "", True],
+        ["c?", "aa", False],
+
+        ["c|a", "c", True],
+        ["c|a", "b", False]
+
+    ]
+    for test in tests:
+        assert match(test[0], test[1]) == test[2], test[0] + " should match " if test[2] else " should not match " + test[1]
 
