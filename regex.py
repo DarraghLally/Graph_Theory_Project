@@ -241,3 +241,23 @@ if __name__ == "__main__":
     for test in tests:
         assert match(test[0], test[1]) == test[2], test[0] + " should match " if test[2] else " should not match " + test[1]
 
+##############################################################
+
+# Console args
+
+# Get regex, print to verify
+regex = raw_input("Enter regex: ")
+print(regex)
+
+# Get string, print to verify
+inputstring = raw_input("Enter string: ")
+print(inputstring)
+
+# Pass into 'answer'
+answer = match(regex, inputstring)
+
+# Output result
+if(answer):
+    print("Accepted")
+else:
+    print("Not Accepted")
