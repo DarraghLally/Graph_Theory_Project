@@ -111,9 +111,10 @@ def compile(infix):
             accept = State()
             start = State(edges=[frag2.start, frag1.start])
             # Point the old accept states to the new one
-            frag2.accept.edges.append(accept)
-            frag1.accept.edges.append(accept)            
-
+            #frag2.accept.edges.append(accept)
+            #frag1.accept.edges.append(accept)            
+            frag2.accept.edges = [accept]
+            frag1.accept.edges = [accept]
         # Any number of, incl. zero
         elif c == '*':
             # Pop just one fragment, Kleene star is a binary operator!
@@ -212,10 +213,49 @@ def match(regex, s):
 
 ##############################################################
 
+def consoleinput():
+    """consoleinput
+    
+    A simple function used when asking for user input from
+    the console. 
+    """
+    # Get regex, print to verify
+    regex = raw_input("Enter regex: ")
+    print(regex)
+
+    # Get string, print to verify
+    inputstring = raw_input("Enter string: ")
+    print(inputstring)
+
+    # Pass args into match() and save into 'answer'
+    answer = match(regex, inputstring)
+
+    # Output appropriate result, depending on boolean 
+    # returned from match()
+    if(answer):
+        print("Accepted")
+    else:
+        print("Not Accepted")
+
+##############################################################
+
+# Function ran first, asking user for regex and string
+consoleinput()
+
+# User asked if they would like to continue
+keeprunning = raw_input("Keep Going? y/n")
+
+while(keeprunning == "y"):
+    # Call function again so user can input new data
+    consoleinput()
+    # Exit/re-run clause
+    keeprunning = raw_input("Keep Going? y/n")
+
+##############################################################
+
 # Testing
 
 # Will only run if this is ran as its own script
-# if calling from another script these tests will not be ran
 if __name__ == "__main__":
     # An array of tests
     tests = [
@@ -243,21 +283,4 @@ if __name__ == "__main__":
 
 ##############################################################
 
-# Console args
 
-# Get regex, print to verify
-regex = raw_input("Enter regex: ")
-print(regex)
-
-# Get string, print to verify
-inputstring = raw_input("Enter string: ")
-print(inputstring)
-
-# Pass into 'answer'
-answer = match(regex, inputstring)
-
-# Output result
-if(answer):
-    print("Accepted")
-else:
-    print("Not Accepted")
