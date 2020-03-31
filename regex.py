@@ -18,9 +18,9 @@ class Fragment:
 class State:
     """A State with labelled edges"""
     # Constructor
-    def __init__(self, label=None, edges=[]):
+    def __init__(self, label=None, edges=None):
         # Each state has 0-2 edges
-        self.edges = edges
+        self.edges = edges if edges else []
         # Each edge is labelled
         self.label = label
 

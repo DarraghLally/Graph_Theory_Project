@@ -41,6 +41,7 @@ Note: I added my own 'style' between classes and functions. The documentation su
 ### Python Tutorials
 Note: Used for example to find out the correct function for console input, with my version of python I must use raw_input\(\).
 https://realpython.com/
+https://www.geeksforgeeks.org/
 
 ### Regular Expressions
 https://www.tldp.org/LDP/Bash-Beginners-Guide/html/sect_04_01.html
@@ -49,10 +50,18 @@ https://regexr.com/
 https://swtch.com/~rsc/regexp/regexp1.html
 
 ### Mark Down Language
-https://waher.se/Markdown.md#specialCharactersInHtml
+https://waher.se/Markdown.md#specialCharactersInHtml/
 https://guides.github.com/features/mastering-markdown/
 
 ### Working with VIM
 https://www.howtoforge.com/vim-basics
 
-           
+
+## Conclusion
+Although Ian provided most of the code for this project and guided us through putting it together, I feel like I have learned multiple lessons along the way.
+* Exposure to Python
+While we touched on the language last year, this modual has showen me how simple and powerful the Python language can be. Using it exclusively to create this regex machine was very enjoyable.
+* Exposure to VIM
+This was a major learning curve for me as I had not been exposed to it in the past. And I love it! Yes it is hard to get used to but once I learned some key features: Copy, Paste and cut, undo and some more, well lets just say I wish I started using it earlier in my education. I have also started watching videos on more advanced VIM use. It has encouraged me to start using my Linux partition.
+* Science
+Solving a problems with software is really fun, this module has shone a light on a different side of Computer Science to the one we meet in many of our other modules. In regards to that, and the knowledge that there is a Course Review ongoing, I encourage you to keep this module or even expand it as I think it will be of great benefit to those choosing to study at GMIT.            
