@@ -23,6 +23,7 @@ Each of these steps have a number of sub steps involved. Start with installing P
 ### Installing Python
 * Using your browser navigate to 'https://www.python.org/downloads/'.
 * Select 'Download Python (current version number)' this will begin downloading the installer.
+![Python Download button](/images/logo.png)
 * Save file to your machine.
 * Open file and follow the instructions.
 * To check that it has in fact downloaded;
@@ -30,6 +31,7 @@ Each of these steps have a number of sub steps involved. Start with installing P
 	* Type CMD.
 	* When the command window opens type 'python --version'.
 	* You should see a message with Python and its version number.
+![CMD line](/images/)
 
 ### Clone Repository
 * Using your browser navigate to 'https://github.com/DarraghLally/Graph_Theory_Project'.
