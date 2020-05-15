@@ -1,3 +1,14 @@
+## Introduction
+Welcome to my overview.md, here I will pitch the idea of this project to the reader. I am aiming for it to be a guide for incomming 3rd year student. This project was developed for our Graph Theory module. We are to create a python program that takes two inputs.
+
+## Run
+
+
+## Testing
+
+
+## Algorithm
+
 
 ## References
 I found plenty of useful information both online and through Ians video series on the project. I have broken the resources up into catogories in which they were used.

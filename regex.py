@@ -2,6 +2,9 @@
 # Creating an NFA using Thompsons Construction
 # Darragh Lally - G00220290
 
+# Import
+import argparse
+
 ##############################################################
 
 class Fragment:
@@ -282,5 +285,7 @@ if __name__ == "__main__":
         assert match(test[0], test[1]) == test[2], test[0] + " should match " if test[2] else " should not match " + test[1]
 
 ##############################################################
+
+# Command Line Arguments
 
 
