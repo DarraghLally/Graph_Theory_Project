@@ -12,11 +12,21 @@ import unittest
 
 ##############################################################
 
+# Command Line Arguments
+
+parser = argparse.ArgumentParser(description="Python NFA Machine. The purpose of this project is to determine if a given string will be accepted by a given regular expression")
+parser.add_argument('String', metavar='inputstring', type=str,
+        help='String to be tested through the NFA')
+parser.add_argument('Regular Expression', metavar='regex', type=str,
+        help='The regular expression used to create the NFA')
+
+##############################################################
+
 class AutoTesting(unittest.TestCase):
     """Class AutoTesting
     
-    Main mane option to run automated testing with hard-coded
-    for both the regular expression and string for testing.
+    Main menu option to run automated testing with hard-coded
+    values for both the regular expression and string for testing.
     """
     def test_and_or(self):
         self.assertTrue(match("a.b|b*", "bbbbb"))
@@ -333,11 +343,6 @@ if __name__ == "__main__":
     ]
     for test in tests:
         assert match(test[0], test[1]) == test[2], test[0] + " should match " if test[2] else " should not match " + test[1]
-
-##############################################################
-
-# Command Line Arguments
-
 
 ##############################################################
 
