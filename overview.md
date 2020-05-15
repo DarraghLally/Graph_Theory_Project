@@ -1,7 +1,9 @@
 ## Introduction
 Welcome to my overview.md, my name is Darragh and I want to pitch the idea of this project to you, the reader. The main goal for this document is to act as a guide for students entering the 3rd year Software Development module 'Graph Theory'. This project was developed by Dr. Ian McLoughlin for our 2020 class. We are to create a python program that takes two inputs,
+
 * Regular Expression - eg a.b
 * String to be tested - ab
+
 By passing both the above via console the program will execute, giving back a True or False depending if the string is excepted in the language of the regular expression. The program creates an Non-Deterministic Finite Automata aka NFA, we must take a step back and cover first the Deterministic Finite Automata aka DFA.
 
 ### Regular Expression
@@ -31,12 +33,13 @@ Each of these steps have a number of sub steps involved. Start with installing P
 	* Type CMD.
 	* When the command window opens type 'python --version'.
 	* You should see a message with Python and its version number.
+
 ![CMD line](./images/pythonVersion.png)
 
 ### Clone Repository
+![Clone / Download button](./images/clone.png)
 * Using your browser navigate to 'https://github.com/DarraghLally/Graph_Theory_Project'.
 * Select the Clone/Download button.
-![Clone / Download button](./images/clone.png)
 * Download zip to machine.
 * Unzip file.
 
