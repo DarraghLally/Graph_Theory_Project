@@ -222,37 +222,53 @@ def consoleinput():
     A simple function used when asking for user input from
     the console. 
     """
-    # Get regex, print to verify
-    regex = raw_input("Enter regex: ")
-    print(regex)
+    while(true):
+        option = raw_input("Press 1 to manually enter regex & string/n"+
+            "Press 2 to run auto testing\n"+
+            "Press 3 to exit\n")
 
-    # Get string, print to verify
-    inputstring = raw_input("Enter string: ")
-    print(inputstring)
+        if option == "1":
+            # Get regex, print to verify
+            regex = raw_input("Enter regex: ")
+            print(regex)
 
-    # Pass args into match() and save into 'answer'
-    answer = match(regex, inputstring)
+            # Get string, print to verify
+            inputstring = raw_input("Enter string: ")
+            print(inputstring)
 
-    # Output appropriate result, depending on boolean 
-    # returned from match()
-    if(answer):
-        print("Accepted")
-    else:
-        print("Not Accepted")
+            # Pass args into match() and save into 'answer'
+            answer = match(regex, inputstring)
+
+            # Output appropriate result, depending on boolean 
+            # returned from match()
+            if(answer):
+                print("Accepted")
+            else:
+                print("Not Accepted")
 
 ##############################################################
 
-# Function ran first, asking user for regex and string
-consoleinput()
+def keepgoing():
+    """keepgoing
 
-# User asked if they would like to continue
-keeprunning = raw_input("Keep Going? y/n")
-
-while(keeprunning == "y"):
-    # Call function again so user can input new data
-    consoleinput()
-    # Exit/re-run clause
+    Asks the user if they wish to continue. Calls consoleinput
+    again if so.
+    """
+    # User asked if they would like to continue
     keeprunning = raw_input("Keep Going? y/n")
+
+    while(keeprunning == "y"):
+        # Call function again so user can input new data
+        consoleinput()
+        # Exit/re-run clause
+        keeprunning = raw_input("Keep Going? y/n")
+
+##############################################################
+
+    # Function ran first, asking user for regex and string
+    # consoleinput()
+    # Continue?
+    # keepgoing()
 
 ##############################################################
 

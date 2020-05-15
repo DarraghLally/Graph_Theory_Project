@@ -1,15 +1,25 @@
-
-from regex import match
-
+# import regex for use of functions
+#from regex import consoleinput, keepgoing
+import regex
+# Making AutoTesting visable.
+import AutoTesting
+# For command line arguments, ie --help
 import argparse
 
 def main():
+ 
+    # Calling function from regex.py
+    # Prompts user for input
+    regex.consoleinput()
+    print()
 
-    # For command line arguments
-    parser = argparse.ArgumentParser(
-        description = "GIVE PROJECT DESCRIPTION"
-    )
+    # Continue or quit execution?
+    regex.keepgoing()
 
-    args = parser.parse_args()
 
-    print("Press 1 to 
+    
+
+    
+
+        
+
