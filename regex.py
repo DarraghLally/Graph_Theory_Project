@@ -32,13 +32,13 @@ class AutoTesting(unittest.TestCase):
 
     def test_any_num(self):
         self.assertTrue(match("b*", ""))
-        self.assertFalse(match("b**", "bbbbbb"))
+        self.assertFalse(match("b**", "bbbbbbn"))
 
     def test_one_more(self):
         self.assertTrue(match("b+", "bbb"))
         self.assertFalse(match("b+", ""))
 
-    def test_zero_one():
+    def test_zero_one(self):
         self.assertTrue(match("c?", ""))
         self.assertFalse(match("c?", "aa"))
 
@@ -274,9 +274,9 @@ def consoleinput():
     # Output appropriate result, depending on boolean 
     # returned from match()
     if(answer):
-        print("Accepted")
+        print("The string " + inputstring + " IS accepted by the regular expression " + regex)
     else:
-        print("Not Accepted")
+        print("The string " + inputstring + " IS NOT accepted by the regular expression " + regex)
 
 
 ##############################################################
@@ -295,6 +295,7 @@ def keepgoing():
         consoleinput()
         # Exit/re-run clause
         keeprunning = raw_input("Keep Going? y/n")
+        print()
 
 ##############################################################
 
@@ -336,7 +337,32 @@ if __name__ == "__main__":
 ##############################################################
 
 # Command Line Arguments
+
+
 ##############################################################
 
+print
+print("Welcome to a Python driven, NFA Machine")
+print
+print("Enter 1 for Manual Argument Entry")
+print("Enter 2 for Automated Testing")
+print("Enter 3 to Exit")
+print
 
+menuchoice = raw_input("Choose 1, 2 or 3")
+while(menuchoice!="3"):
+    if menuchoice == "1":
+        consoleinput()
+        keepgoing()
+    elif menuchoice == "2":
+        unittest.main()
+    else:
+        print("Incorrect Input")
 
+    print
+    print("Enter 1 for Manual Argument Entry")
+    print("Enter 2 for Automated Testing")
+    print("Enter 3 to Exit")
+    print
+    menuchoice = raw_input("Choose 1, 2 or 3")
+    print
