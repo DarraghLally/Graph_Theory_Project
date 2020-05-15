@@ -20,6 +20,8 @@ parser.add_argument('String', metavar='inputstring', type=str,
 parser.add_argument('Regular Expression', metavar='regex', type=str,
         help='The regular expression used to create the NFA')
 
+args = parser.parse_args()
+print(args.accumulate(args.String))
 ##############################################################
 
 class AutoTesting(unittest.TestCase):
