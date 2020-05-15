@@ -2,8 +2,45 @@
 # Creating an NFA using Thompsons Construction
 # Darragh Lally - G00220290
 
-# Import
+
+##############################################################
+
+# Import for command line arguments
 import argparse
+# Import for testing
+import unittest
+
+##############################################################
+
+class AutoTesting(unittest.TestCase):
+    """Class AutoTesting
+    
+    Main mane option to run automated testing with hard-coded
+    for both the regular expression and string for testing.
+    """
+    def test_and_or(self):
+        self.assertTrue(match("a.b|b*", "bbbbb"))
+        self.assertFalse(match("a.b|b*", "bbbbbn"))
+
+    def test_and(self):
+        self.assertTrue(match("a.b", "ab"))
+        self.assertFalse(match("a.b", "c"))
+
+    def test_or(self):
+        self.assertTrue(match("c|a", "c"))
+        self.assertFalse(match("c|a", "b"))
+
+    def test_any_num(self):
+        self.assertTrue(match("b*", ""))
+        self.assertFalse(match("b**", "bbbbbb"))
+
+    def test_one_more(self):
+        self.assertTrue(match("b+", "bbb"))
+        self.assertFalse(match("b+", ""))
+
+    def test_zero_one():
+        self.assertTrue(match("c?", ""))
+        self.assertFalse(match("c?", "aa"))
 
 ##############################################################
 
@@ -222,37 +259,33 @@ def consoleinput():
     A simple function used when asking for user input from
     the console. 
     """
-    while(true):
-        option = raw_input("Press 1 to manually enter regex & string/n"+
-            "Press 2 to run auto testing\n"+
-            "Press 3 to exit\n")
 
-        if option == "1":
-            # Get regex, print to verify
-            regex = raw_input("Enter regex: ")
-            print(regex)
+    # Get regex, print to verify
+    regex = raw_input("Enter regex: ")
+    print(regex)
 
-            # Get string, print to verify
-            inputstring = raw_input("Enter string: ")
-            print(inputstring)
+    # Get string, print to verify
+    inputstring = raw_input("Enter string: ")
+    print(inputstring)
 
-            # Pass args into match() and save into 'answer'
-            answer = match(regex, inputstring)
+    # Pass args into match() and save into 'answer'
+    answer = match(regex, inputstring)
 
-            # Output appropriate result, depending on boolean 
-            # returned from match()
-            if(answer):
-                print("Accepted")
-            else:
-                print("Not Accepted")
+    # Output appropriate result, depending on boolean 
+    # returned from match()
+    if(answer):
+        print("Accepted")
+    else:
+        print("Not Accepted")
+
 
 ##############################################################
 
 def keepgoing():
     """keepgoing
-
-    Asks the user if they wish to continue. Calls consoleinput
-    again if so.
+    
+    Function called to ask if user wants
+    to continue.
     """
     # User asked if they would like to continue
     keeprunning = raw_input("Keep Going? y/n")
@@ -265,11 +298,11 @@ def keepgoing():
 
 ##############################################################
 
-    # Function ran first, asking user for regex and string
-    # consoleinput()
-    # Continue?
-    # keepgoing()
-
+# Function ran first, asking user for regex and string
+#consoleinput()
+# Continue?
+#keepgoing()
+        
 ##############################################################
 
 # Testing
@@ -303,5 +336,7 @@ if __name__ == "__main__":
 ##############################################################
 
 # Command Line Arguments
+##############################################################
+
 
 
