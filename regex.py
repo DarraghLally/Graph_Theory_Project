@@ -14,14 +14,18 @@ import unittest
 
 # Command Line Arguments
 
-parser = argparse.ArgumentParser(description="Python NFA Machine. The purpose of this project is to determine if a given string will be accepted by a given regular expression")
-parser.add_argument('String', metavar='inputstring', type=str,
-        help='String to be tested through the NFA')
-parser.add_argument('Regular Expression', metavar='regex', type=str,
-        help='The regular expression used to create the NFA')
+# Parser
+#parser = argparse.ArgumentParser(description="Python NFA Machine. The purpose of this project is to determine if a given string will be accepted by a given regular expression")
 
-args = parser.parse_args()
-print(args.accumulate(args.String))
+# Adding arguments
+#parser.add_argument('String', metavar='inputstring', type=str,
+#       help='String to be tested through the NFA')
+#parser.add_argument('Regular Expression', metavar='regex', type=str,
+#        help='The regular expression used to create the NFA')
+
+#args = parser.parse_args()
+#print(args.accumulate(args.String))
+
 ##############################################################
 
 class AutoTesting(unittest.TestCase):
@@ -286,9 +290,9 @@ def consoleinput():
     # Output appropriate result, depending on boolean 
     # returned from match()
     if(answer):
-        print("The string " + inputstring + " IS accepted by the regular expression " + regex)
+        print("The string '" + inputstring + "' IS accepted by the regular expression '" + regex + "'")
     else:
-        print("The string " + inputstring + " IS NOT accepted by the regular expression " + regex)
+        print("The string '" + inputstring + "' IS NOT accepted by the regular expression '" + regex + "'")
 
 
 ##############################################################
@@ -300,21 +304,14 @@ def keepgoing():
     to continue.
     """
     # User asked if they would like to continue
-    keeprunning = raw_input("Keep Going? y/n")
+    keeprunning = raw_input("Try another? y/n")
 
     while(keeprunning == "y"):
         # Call function again so user can input new data
         consoleinput()
         # Exit/re-run clause
-        keeprunning = raw_input("Keep Going? y/n")
+        keeprunning = raw_input("Try another? y/n")
         print()
-
-##############################################################
-
-# Function ran first, asking user for regex and string
-#consoleinput()
-# Continue?
-#keepgoing()
         
 ##############################################################
 
@@ -331,7 +328,7 @@ if __name__ == "__main__":
         ["a.b", "c", False], 
         
         ["b*", "", True],
-        ["b**", "bbbbbb", True],
+        ["b**", "bbbbbbx", False],
 
         ["b+", "bbb", True],
         ["b+", "", False],
@@ -343,33 +340,58 @@ if __name__ == "__main__":
         ["c|a", "b", False]
 
     ]
+    # Loop through and print result.
     for test in tests:
         assert match(test[0], test[1]) == test[2], test[0] + " should match " if test[2] else " should not match " + test[1]
 
 ##############################################################
 
+# Help Option
+def helpinfo():
+    print
+    print("Help Information:")
+    print
+    print("INPUTS:")
+    print(" regex: A Regular Expression of your choosing" +
+           " can accept the following operands: ")
+    print("     . = concat, eg- a.b")
+    print("     | = or, eg- a|b")
+    print("     * = any number of, including zero, eg- a*")
+    print("     + = one or more, eg- a+")
+    print("     ? = zero or one, eg- a?")
+    print
+    print(" string: An array of characters to be tested with the" +  
+            " NFA created from the regular expression")
+    print
+
+##############################################################
+
+# Main Menu Print
+
+def mainmenu():
+    print
+    print("Enter 1: Manual Argument Entry")
+    print("Enter 2: Automated Testing")
+    print("Enter 3: Help")
+    print("Enter 4: Exit")
+    print
+
+##############################################################
 print
 print("Welcome to a Python driven, NFA Machine")
-print
-print("Enter 1 for Manual Argument Entry")
-print("Enter 2 for Automated Testing")
-print("Enter 3 to Exit")
-print
-
-menuchoice = raw_input("Choose 1, 2 or 3")
-while(menuchoice!="3"):
+mainmenu()
+menuchoice = raw_input("Choose 1, 2, 3 or 4")
+while(menuchoice!="4"):
     if menuchoice == "1":
         consoleinput()
         keepgoing()
     elif menuchoice == "2":
         unittest.main()
+    elif menuchoice == "3":
+        helpinfo()
+
     else:
         print("Incorrect Input")
-
-    print
-    print("Enter 1 for Manual Argument Entry")
-    print("Enter 2 for Automated Testing")
-    print("Enter 3 to Exit")
-    print
-    menuchoice = raw_input("Choose 1, 2 or 3")
+    mainmenu()
+    menuchoice = raw_input("Choose 1, 2, 3 or 4")
     print
