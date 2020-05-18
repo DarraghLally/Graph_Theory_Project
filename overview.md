@@ -19,7 +19,7 @@ Regex Operator | Example | Defined
 
 ### Deterministic Finite Automata
 A DFA is a 'finite state machine' that either accepts or rejects a given String (series of character) by passing it through a set of 'states'. Deterministic means that it can be in only one state at a time. A DFA is made up of 5 tuples.
-&#0395; 
+&Epsilon; 
 
 ### Non Deterministic Finite Automata
 A NFA...
