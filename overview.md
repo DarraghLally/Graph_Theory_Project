@@ -29,11 +29,18 @@ Symbol | Meaning
  q0 | Start State
  F | Final State
 
-Below is an example of a DFA with &epsilon;\{a,b\} which accepts strings that start in a *b* and end in an *a*
+Below is an example of a DFA with &epsilon;\{0,1\} which accepts strings that start in a *1* and end in an *0*
 ![DFA example](./images/DFA.png)
 
 ### Non Deterministic Finite Automata
-A NFA...
+Non Deterministic on the other hand can by in multiple states at the same time. It can also use empty string transition. It is made up of multiple smaller machines.
+* Only needs to know &delta;, q0 and F
+* Nothing points *to* q0
+* Nothing points *from* F
+* Every state has a single symbol arrow *or* 1-2 e arrows
+The below is an example of an NFA that is constructed with the regex a.b, meaning it will accept an *a* followed by a *b*. It is made up of two fragments.
+![NFA example](./images/NFA.png)
+
 
 ## Run
 There are a number of steps involved to run this program.
@@ -66,10 +73,14 @@ Each of these steps have a number of sub steps involved. Start with installing P
 ### Execute
 * Open the file in CMD.
 * Type: 'python regex.py'
+* Option 1 - Manual Entry
 	* You will be asked to input a regular expression, eg - a.b (a followed by a b).
 	* You will be asked to input a string to be tested, eg - a. 
-	* Program will output a True or False answer indicating that the strig has/has not been accepted.
-
+	* Program will output a True or False answer indicating that the string has or has not been accepted.
+* Option 2 - Run automated tests
+	* Will run hardcoded tests and output is succesful or not. Tests cover each operator and combinations of operators.
+* Option 3 - Help menu, I tried to implement argsparse after the fact but I could not debug the issues I was encountering. The code is left in regex.py, commented out.
+* Option 4 - Teminate execution.
 
 ## Testing
 
