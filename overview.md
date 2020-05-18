@@ -83,7 +83,16 @@ Each of these steps have a number of sub steps involved. Start with installing P
 * Option 4 - Teminate execution.
 
 ## Testing
-
+To test my program i used the library unittest. unittest takes its insperation from Java's JUnit library. I wrote a class AutoTesting, which has a method to test each operator, in each method my function match is called, passing in two arguments
+* Regular Expression
+* String
+Here is an example of one of the methods,
+"""python
+def test_and_or(self):
+        self.assertTrue(match("a.b|b*", "bbbbb"))
+        self.assertFalse(match("a.b|b*", "bbbbbn"))
+"""
+These tests are run when the user chooses option 2 in the main menu.
 
 ## Algorithm
 
