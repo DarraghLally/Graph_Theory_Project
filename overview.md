@@ -99,6 +99,31 @@ def test_and_or(self):
 These tests are run when the user chooses option 2 in the main menu. I also have included tests which will run if the module is imported into another module - 
 ```python
 if __name__ == "__main__":
+    # An array of tests
+    tests = [
+        ["a.b|b*", "bbbbb", True],
+        ["a.b|b*", "bbbbbx", False],
+        
+        ["a.b", "ab", True], 
+        ["a.b", "c", False], 
+        
+        ["b*", "", True],
+        ["b**", "bbbbbbx", False],
+
+        ["b+", "bbb", True],
+        ["b+", "", False],
+
+        ["c?", "", True],
+        ["c?", "aa", False],
+
+        ["c|a", "c", True],
+        ["c|a", "b", False]
+
+    ]
+    # Loop through and print result.
+    for test in tests:
+        assert match(test[0], test[1]) == test[2], test[0] + " should match " if test[2] else " should not match " + test[1]
+
 ```
 
 ## Algorithm
@@ -174,12 +199,45 @@ def shunt(infix):
     # Convert output list to string
     return ''.join(postfix)
 ```
-* 
+* The function *match* takes in the regex and string from the command line. This function does all the heavy lifting ie it calls the relevent functions in order, finally returning True is the string has been accepted.
+```python
+def match(regex, s):
+    """match
+    A function that returns True if regular expression
+    (regex) matchs the string (s)
+    """
+    # Compile regex into NFA
+    nfa = compile(regex)
+    # Current set of states
+    current = set()
+    # Add first state, and follow all 'e' arrows
+    followepsilon(nfa.start, current)
+    # Previous set of states
+    previous = set()
+
+    for c in s: 
+        # Keep track of where we were
+        previous = current
+        # Create a new empty set for states we will soon be in
+        current = set()
+
+        for state in previous:
+            # Only follow arrows not labelled by E, epsilon
+            if state.label is not None:
+                # If label of the state is == to char
+                if state.label == c:
+                    # Add state at the end of the edge to current
+                    followepsilon(state.edges[0], current)
+    
+    # Only one accept state, if we are there, return true!
+    return nfa.accept in current
+``` 
 
 ## References
 I found plenty of useful information both online and through Ians video series on the project. I have broken the resources up into catogories in which they were used.
 
 ### Youtube Videos
+https://www.youtube.com/user/Computerphile
 https://www.youtube.com/user/Computerphile/videos?view=0&sort=dd&shelf_id=1
 
 ### Working with \+ and \?
@@ -195,6 +253,9 @@ https://www.gnu.org/software/gcal/manual/html_node/Regexp-Operators.html
 https://www.python.org/
 Note: I added my own 'style' between classes and functions. The documentation suggests 2 and 3 line spaces but I find it easier to read when there is a clear break between blocks. I do hope this is acceptable!
 
+### Python download
+https://www.python.org/downloads/
+
 ### Python Tutorials
 Note: Used for example to find out the correct function for console input, with my version of python I must use raw_input\(\).
 https://realpython.com/
@@ -205,12 +266,25 @@ https://www.tldp.org/LDP/Bash-Beginners-Guide/html/sect_04_01.html
 https://www.vogella.com/tutorials/JavaRegularExpressions/article.html
 https://regexr.com/
 https://swtch.com/~rsc/regexp/regexp1.html
+https://en.wikipedia.org/wiki/Regular_expression
+
+### Finite Automata
+https://math.stackexchange.com/questions/563829/difference-between-nfa-and-dfa
+https://www.geeksforgeeks.org/difference-between-dfa-and-nfa/
+https://www.javatpoint.com/examples-of-deterministic-finite-automata
 
 ### Mark Down Language
 https://waher.se/Markdown.md#specialCharactersInHtml/
 https://guides.github.com/features/mastering-markdown/
+https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
+https://www.keynotesupport.com/internet/special-characters-greek-letters-symbols.shtml
 
 ### Working with VIM
 https://www.howtoforge.com/vim-basics
 
+### Command Line Arguments
+https://docs.python.org/3.3/library/argparse.html
+https://pymotw.com/2/argparse/
 
+### Unit Testing
+https://docs.python.org/3/library/unittest.html
