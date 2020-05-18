@@ -96,10 +96,85 @@ def test_and_or(self):
 ```
 
 
-These tests are run when the user chooses option 2 in the main menu.
+These tests are run when the user chooses option 2 in the main menu. I also have included tests which will run if the module is imported into another module - 
+```python
+if __name__ == "__main__":
+```
 
 ## Algorithm
+To achieve the goal of creating and NFA from a regular expression we needed to create a program with a number of algorithms. When correctly constructed the process will take in both a regular expression and string. It will create the NFA from the regular expression and test the string through the final machine. There are a number of steps to be taken for us to construct an NFA.
+* Create a fragment with a start and accept state. 
+```python
+class Fragment:
+    """An NFA fragment, with a start and accept state"""
+    # Constructor
+    def __init__(self, start, accept):
+        # Start state of NFA
+        self.start = start  
+        # Accept state of NFA
+        self.accept = accept
+```
+* Create a state.
+```python
+class State:
+    """A State with labelled edges"""
+    # Constructor
+    def __init__(self, label=None, edges=None):
+        # Each state has 0-2 edges
+        self.edges = edges if edges else []
+        # Each edge is labelled
+        self.label = label
+```
+* Create a function to convert infix notation to postfix notation
+	* This is done with the Shunting Yard aglorithm.
+	* Example of infix - a.b
+	* Example of postfix - ab.
+The Shunting Yard Algorithm is a technique for parsing infix expressions into its postfix equiviant, taking into account operator precedence. I have inplemented it using the stack data structure.
+```python
+def shunt(infix):
+    """shunt
+    Shunting Yard Algorithm to parse and return regex in postfix notation 
+    """
+    # Convert input to a stack, in reverse order
+    infix = list(infix)[::-1]
+    # Operator Stack
+    opers = []
+    # Postfix regex
+    postfix = []
+    # Operator presidence 
+    prec = {'*':100, '+':100, '?':100, '.':70, '|':60, ')':40, '(':40 }
 
+    while infix:
+        # Pop a char from the input
+        c = infix.pop() # Returns and removes last element
+        if c == '(':
+            # If its an open bracket push to opers stack
+            opers.append(c)
+        elif c == ')':
+            # Pop the operators stack until you find an open bracket
+            while opers[-1] != '(':
+                postfix.append(opers.pop())
+            # Get rid of the open bracket
+            opers.pop()
+        # Decide what to do based on the char
+        elif c in prec:
+            # Push operators on the opers stack with higher pref to output
+            while opers and prec[c] < prec[opers[-1]]:
+                postfix.append(opers.pop())
+            # Push c to opers stack
+            opers.append(c)
+        else:
+            # Typically, we just push the char to the output
+            postfix.append(c)
+
+    while opers:
+        # Pop all operators to the output
+        postfix.append(opers.pop())
+
+    # Convert output list to string
+    return ''.join(postfix)
+```
+* 
 
 ## References
 I found plenty of useful information both online and through Ians video series on the project. I have broken the resources up into catogories in which they were used.
