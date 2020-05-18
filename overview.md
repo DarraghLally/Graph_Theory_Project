@@ -258,33 +258,36 @@ https://www.python.org/downloads/
 
 ### Python Tutorials
 Note: Used for example to find out the correct function for console input, with my version of python I must use raw_input\(\).
-https://realpython.com/
-https://www.geeksforgeeks.org/
+* https://realpython.com/
+* https://www.geeksforgeeks.org/
 
 ### Regular Expressions
-https://www.tldp.org/LDP/Bash-Beginners-Guide/html/sect_04_01.html
-https://www.vogella.com/tutorials/JavaRegularExpressions/article.html
-https://regexr.com/
-https://swtch.com/~rsc/regexp/regexp1.html
-https://en.wikipedia.org/wiki/Regular_expression
+* https://www.tldp.org/LDP/Bash-Beginners-Guide/html/sect_04_01.html
+* https://www.vogella.com/tutorials/JavaRegularExpressions/article.html
+* https://regexr.com/
+* https://swtch.com/~rsc/regexp/regexp1.html
+* https://en.wikipedia.org/wiki/Regular_expression
 
 ### Finite Automata
-https://math.stackexchange.com/questions/563829/difference-between-nfa-and-dfa
-https://www.geeksforgeeks.org/difference-between-dfa-and-nfa/
-https://www.javatpoint.com/examples-of-deterministic-finite-automata
+* https://math.stackexchange.com/questions/563829/difference-between-nfa-and-dfa
+* https://www.geeksforgeeks.org/difference-between-dfa-and-nfa/
+* https://www.javatpoint.com/examples-of-deterministic-finite-automata
+
+### Shunting Yard
+* https://brilliant.org/wiki/shunting-yard-algorithm/
 
 ### Mark Down Language
-https://waher.se/Markdown.md#specialCharactersInHtml/
-https://guides.github.com/features/mastering-markdown/
-https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
-https://www.keynotesupport.com/internet/special-characters-greek-letters-symbols.shtml
+* https://waher.se/Markdown.md#specialCharactersInHtml/
+* https://guides.github.com/features/mastering-markdown/
+* https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
+* https://www.keynotesupport.com/internet/special-characters-greek-letters-symbols.shtml
 
 ### Working with VIM
-https://www.howtoforge.com/vim-basics
+* https://www.howtoforge.com/vim-basics
 
 ### Command Line Arguments
-https://docs.python.org/3.3/library/argparse.html
-https://pymotw.com/2/argparse/
+* https://docs.python.org/3.3/library/argparse.html
+* https://pymotw.com/2/argparse/
 
 ### Unit Testing
-https://docs.python.org/3/library/unittest.html
+* https://docs.python.org/3/library/unittest.html
