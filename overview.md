@@ -87,6 +87,7 @@ To test my program i used the library unittest. unittest takes its insperation f
 * Regular Expression
 * String
 Here is an example of one of the methods,
+
 """python
 
 def test_and_or(self):
@@ -94,6 +95,7 @@ def test_and_or(self):
         self.assertFalse(match("a.b|b*", "bbbbbn"))
 
 """
+
 These tests are run when the user chooses option 2 in the main menu.
 
 ## Algorithm
