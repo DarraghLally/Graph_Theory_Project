@@ -29,6 +29,9 @@ Symbol | Meaning
  q0 | Start State
  F | Final State
 
+Below is an example of a DFA with &epsilon;\{a,b\} which accepts strings that start in a *b* and end in an *a*
+![DFA example](./images/DFA.png)
+
 ### Non Deterministic Finite Automata
 A NFA...
 
