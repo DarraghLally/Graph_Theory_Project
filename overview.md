@@ -7,7 +7,15 @@ Welcome to my overview.md, my name is Darragh and I want to pitch the idea of th
 By passing both the above via console the program will execute, giving back a True or False depending if the string is excepted in the language of the regular expression. The program creates an Non-Deterministic Finite Automata aka NFA, we must take a step back and cover first the Deterministic Finite Automata aka DFA.
 
 ### Regular Expression
+A regular expression aka regex, is a method of pattern matching used in programming. It is a sequence of characters that define a search pattern. They are implemented in most find and find \& replace operations on a string. The below table has some examples.
 
+Regex Operator | Example | Defined 
+---------- | ---------- | ----------
+ . | a.b | character *a* followed by *b*
+ \| | a\|b | character *a* or character *b*
+ \* | a\* | Any number of character *a* including zero
+ \+ | a\+ | One or more of the character *a*
+ \? | a\? | Zero or one of the character *a*
 
 ### Deterministic Finite Automata
 A DFA is a 'finite state machine' that either accepts or rejects a given String (series of character) by passing it through a set of 'states'. 
